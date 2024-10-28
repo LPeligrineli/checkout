@@ -1,10 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { mask } from '@/utils/mask';
 import { Button } from "@/components/ui/button";
 import { CreditCardSchema } from "@/schemas/creditCard.schema";
+import { z } from "zod";
+
+type CredtCardFormData = z.infer<typeof CreditCardSchema>;
 
 interface CreditCardFormProps {
     setName: (name: string) => void;
@@ -32,7 +35,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
 
     const formValues = watch();
 
-    const onSubmit = (data: any ) => {
+    const onSubmit = (data: CredtCardFormData ) => {
         console.log(data);
     }
 

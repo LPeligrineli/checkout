@@ -1,5 +1,5 @@
 export const isCreditCardValid = (numero: string): boolean => {
-    let digitos = numero.toString().split('').reverse();
+    const digitos = numero.toString().split('').reverse();
 
     let soma = 0;
     for (let i = 0; i < digitos.length; i++) {

@@ -1,5 +1,5 @@
 import { CreditCardsFlagsEnum } from "../enum/CreditCardFlags.enum";
-export const verifyFlag = (number: string | undefined) => {
+export const verifyFlag = (number: string | undefined): CreditCardsFlagsEnum | undefined => {
     if (number) {
         const startNumber = parseInt(number.substring(0, 2));
         if (startNumber >= 40 && startNumber <= 49) {

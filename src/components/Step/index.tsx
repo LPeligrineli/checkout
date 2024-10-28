@@ -3,7 +3,6 @@ import { StepProps } from "@/types/steps.type";
 import Typography from "@/components/ui/typography";
 import { FaCheck, FaChevronRight } from "react-icons/fa6";
 import useWindowSize from "@/hooks/useWindowSize";
-import { Breakpoints } from "@/enum/breakPoint.enum";
 
 interface StepsProps {
     steps: StepProps[];

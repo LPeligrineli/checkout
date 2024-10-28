@@ -1,23 +1,17 @@
 'use client'
 
-import { use, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import Typography from '@/components/ui/typography';
 import { CreditCardsFlags } from '@/constants/creditCardsFlags.const';
 import { verifyFlag } from '@/utils/verifyFlag';
-
-interface CreditCardLayoutProps {
-    name?: string;
-    number?: string;
-    expiration?: string;
-    cvv?: string;
-    flip: boolean;
-}
+import { CreditCardsFlagsEnum } from '@/enum/CreditCardFlags.enum';
+import { layoutCardProps, CreditCardLayoutProps } from './CreditCardLayout.type';
 
 const CreditCardLayout: React.FC<CreditCardLayoutProps> = ({ cvv, expiration, flip, name, number }) => {
 
-    const getFlag = useMemo(() => verifyFlag(number), [number]);
+    const getFlag: CreditCardsFlagsEnum | undefined = useMemo(() => verifyFlag(number), [number]);
 
-    const layoutCard: any = useMemo(() => !getFlag ? CreditCardsFlags.default : CreditCardsFlags[getFlag], [number]);
+    const layoutCard: layoutCardProps = useMemo(() => !getFlag ? CreditCardsFlags.default : CreditCardsFlags[getFlag], [getFlag]);
 
 
     return (
