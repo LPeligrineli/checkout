@@ -14,7 +14,6 @@ import { Installment, Installments } from "@/types/installments.type";
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CreditCardFormData } from "@/types/creditCard.type";
 import { mockvalue } from "./mockValues";
-import Typography from "@/components/ui/typography";
 
 interface CreditCardFormProps {
     setName: (name: string) => void;
