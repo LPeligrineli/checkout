@@ -7,22 +7,14 @@ import { verifyFlag } from '@/utils/verifyFlag';
 import { CreditCardsFlagsEnum } from '@/enum/CreditCardFlags.enum';
 
 
-interface CreditCardProps {
-    name?: string;
-    number?: string;
-    expiration?: string;
-    cvv?: string;
-}
-
-
-const CreditCard: React.FC<CreditCardProps> = () => {
+const CreditCard = () => {
     const [flip, setFlip] = useState(false);
     const [number, setNumber] = useState<string>();
     const [name, setName] = useState<string>();
     const [expiration, setExpiration] = useState<string>();
     const [cvv, setCvv] = useState<string>();
 
-    
+    console.log('number', number);
 
     const getFlag: CreditCardsFlagsEnum | undefined = useMemo(() => verifyFlag(number), [number]);
 
@@ -33,10 +25,9 @@ const CreditCard: React.FC<CreditCardProps> = () => {
             setFlip(!flip)
         }
     }
-
     return (
         <div className="card-container absolute w-full">
-            <CreditCardLayout 
+            <CreditCardLayout
                 cvv={cvv}
                 expiration={expiration}
                 name={name}
@@ -52,6 +43,7 @@ const CreditCard: React.FC<CreditCardProps> = () => {
                     setNumber={setNumber}
                 />
             </div>
+            
         </div>
     );
 };

@@ -12,4 +12,8 @@ export class mask {
     public static maskCardCvv(cvv: string): string {
         return cvv.replace(/\d/g, '*').trim();
     }
+    public static hideCardNumber(cardNumber: string): string {
+        const cleanedCardNumber = cardNumber.replace(/\s+/g, '');
+        return `**** **** **** ${cleanedCardNumber.slice(-4)}`;
+    }
 }
