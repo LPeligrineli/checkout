@@ -30,7 +30,7 @@ const CreditCardLayout: React.FC<CreditCardLayoutProps> = ({ cvv, expiration, fl
             </div>
             <div className="card-back">
                 <img className='max-full md:max-w-none' src={layoutCard.back} alt="Back of card" />
-                <div className='absolute right-14 top-1/2 -translate-y-1/2 flex flex-col justify-between w-full p-6'>
+                <div className='absolute right-14 top-1/2 -translate-y-1/2 flex flex-col justify-between w-auto p-6'>
                     <div className='flex justify-end'>
                         <Typography color='text-black' variant='h3'>{cvv ? cvv : '***'}</Typography>
                     </div>
