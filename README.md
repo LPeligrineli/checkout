@@ -27,18 +27,6 @@ Este projeto é um sistema de checkout que permite aos usuários realizar pagame
     npm install
     ```
 
-## Configuração
-
-1. Crie um arquivo .env na raiz do projeto e adicione as seguintes
-    ```
-    NEXT_PUBLIC_API_URL= http://localhost:3000/api
-    NEXT_PUBLIC_ENCRYPTION_KEY= [sua chave de crypto]
-    ```
-2. Certifique-se de que o arquivo .env está listado no .gitignore para que não seja versionado:
-    ```
-    env
-    ```
-
 ## Uso
 
 1. Inicie o servidor de desenvolvimento:
@@ -48,4 +36,32 @@ Este projeto é um sistema de checkout que permite aos usuários realizar pagame
     ```
 
 2. Abra o navegador e acesse http://localhost:3000.
+
+## Configuração
+
+1. Crie um arquivo .env na raiz do projeto e adicione as seguintes
+    ```
+    NEXT_PUBLIC_API_URL= http://localhost:3000/api
+    NEXT_PUBLIC_ENCRYPTION_KEY= [sua chave de crypto]
+    ```
+   Para gerar uma chave de criptografia basta acessar a seguinte rota (http://localhost:3000/api)
+
+   Copie o conteudo da message e coloque na variável
+
+
+3. Certifique-se de que o arquivo .env está listado no .gitignore para que não seja versionado:
+    ```
+    env
+    ```
+
+## Testes
+
+Para executar os testes, utilize o comando:
+```bash
+npm test
+```
+
+## Capturas de tela
+![image](https://github.com/user-attachments/assets/7424140b-8e9c-4058-9a4f-7fef8976dfb4)
+
 
