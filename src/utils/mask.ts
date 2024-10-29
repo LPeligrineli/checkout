@@ -5,12 +5,12 @@ export class mask {
     }
 
     public static maskCardExpiry(expiry: string): string {
-        const cleanedExpiry = expiry.replace(/\//g, '');
-        return cleanedExpiry.replace(/(\d{2})/, '$1/').trim();
+        const value = expiry.replace(/\D/g, ''); 
+        const formattedValue = value.replace(/(\d{2})(\d)/, '$1/$2'); 
+        return formattedValue.substring(0, 5);
     }
-
     public static maskCardCvv(cvv: string): string {
-        return cvv.replace(/\d/g, '*').trim();
+        return cvv.replace(/\D/g, '').trim();
     }
     public static hideCardNumber(cardNumber: string): string {
         const cleanedCardNumber = cardNumber.replace(/\s+/g, '');
