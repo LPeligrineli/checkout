@@ -32,7 +32,7 @@ Este projeto é um sistema de checkout que permite aos usuários realizar pagame
 1. Crie um arquivo .env na raiz do projeto e adicione as seguintes
     ```
     NEXT_PUBLIC_API_URL= http://localhost:3000/api
-    NEXT_PUBLIC_ENCRYPTION_KEY= `${{secrets.NEXT_PUBLIC_ENCRYPTION_KEY}}`
+    NEXT_PUBLIC_ENCRYPTION_KEY= [sua chave de crypto]
     ```
 2. Certifique-se de que o arquivo .env está listado no .gitignore para que não seja versionado:
     ```
