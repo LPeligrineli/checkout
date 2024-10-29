@@ -8,16 +8,14 @@ import useWindowSize from '@/hooks/useWindowSize';
 import { Breakpoints } from '@/enum/breakPoint.enum';
 import Image from 'next/image';
 
-// import CryptoJS from 'crypto-js';
 
 
 export default function Home() {
 
   const { width } = useWindowSize();
-  // console.log(CryptoJS.lib.WordArray.random(32).toString(CryptoJS.enc.Base64));
   return (
     <main className="grid grid-rows-12 grid-cols-12 w-full h-dvh">
-      <section className="col-span-12 md:col-span-3 row-span-3 md:row-span-full bg-green-light">
+      <section className="col-span-12 md:col-span-3 row-span-4 md:row-span-full bg-green-light">
         <div className="container">
           <div className="flex items-center">
             <FaChevronLeft color='var(--white)' />

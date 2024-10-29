@@ -133,7 +133,7 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
                         name='cvv'
                         label="CVV"
                         maxLength={4}
-                        onChange={(e) => setValue('cvv', e.target.value)}
+                        onChange={(e) => setValue('cvv', mask.maskCardCvv(e.target.value))}
                         onFocus={flipCard}
                         onBlur={flipCard}
                         error={errors.cvv?.message}
