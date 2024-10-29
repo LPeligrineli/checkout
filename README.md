@@ -1,5 +1,7 @@
 # Projeto de Checkout
 
+Veja o projeto publicado aqui => (https://checkout-nu.vercel.app/)
+
 Este projeto é um sistema de checkout que permite aos usuários realizar pagamentos com cartão de crédito. Ele inclui funcionalidades como criptografia de dados sensíveis, validação de formulários e exibição de informações de pagamento.
 
 ## Tecnologias Utilizadas
