@@ -43,7 +43,6 @@ export default function Home() {
         <div className="container">
           {width >= Breakpoints.MD && (
             <Step steps={paymentSteps} currentStep={0} />
-
           )}
         </div>
       </section>

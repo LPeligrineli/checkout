@@ -6,8 +6,13 @@ import { mask } from '@/utils/mask';
 import { Button } from "@/components/ui/button";
 import { CreditCardSchema } from "@/schemas/creditCard.schema";
 import { z } from "zod";
+import { paymentService } from "@/services/payment";
+import { paymentModel } from "../payment.model";
+import { useRouter } from "next/navigation";
+import { useCreditCardContext } from "@/context/payment";
 
-type CredtCardFormData = z.infer<typeof CreditCardSchema>;
+
+type CreditCardFormData = z.infer<typeof CreditCardSchema>;
 
 interface CreditCardFormProps {
     setName: (name: string) => void;
@@ -22,27 +27,47 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
     // const [installments, setInstallments] = useState([]);
 
     // const installmentsMemo = useMemo<any>(() => installments, [installments]);
+    const { setCreditCardData} = useCreditCardContext();
+    const router = useRouter();
 
-    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm({
         defaultValues: {
-            number: '',
+            cardNumber: '',
             name: '',
-            expiration: '',
-            cvv: ''
+            expirationDate: '',
+            cvv: '',
         },
         resolver: zodResolver(CreditCardSchema),
     });
 
+    const clearForm = () => {
+        reset({
+            cardNumber: '',
+            name: '',
+            expirationDate: '',
+            cvv: '',
+        });
+    }
+
     const formValues = watch();
 
-    const onSubmit = (data: CredtCardFormData ) => {
-        console.log(data);
+    const onSubmit = async (data: CreditCardFormData ) => {
+        paymentService.sendPayment(paymentModel(data))
+        .then(() => {
+            setCreditCardData(data);
+            clearForm();
+            router.push('/feedback');
+        }
+        )
+        .catch((error) => {
+            console.error('Erro ao realizar pagamento:', error);
+        });    
     }
 
     useEffect(() => {
-        setNumber(mask.maskCardNumber(formValues.number));
+        setNumber(mask.maskCardNumber(formValues.cardNumber));
         setName(formValues.name);
-        setExpiration(formValues.expiration);
+        setExpiration(formValues.expirationDate);
         setCvv(formValues.cvv);
 
     }, [formValues, setNumber, setName, setExpiration, setCvv]);
@@ -52,12 +77,12 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-x-4 gap-y-6 w-full">
 
                 <Input
-                    {...register('number')}
-                    name='number'
+                    {...register('cardNumber')}
+                    name='cardNumber'
                     label="Numero do cartão"
                     maxLength={19}
-                    onChange={(e) => setValue('number', mask.maskCardNumber(e.target.value))}
-                    error={errors.number?.message}
+                    onChange={(e) => setValue('cardNumber', mask.maskCardNumber(e.target.value))}
+                    error={errors.cardNumber?.message}
                     testid='creditCardNumber'
                 />
                 <Input
@@ -71,12 +96,12 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
                 <div className="flex w-full gap-4">
                     <Input
 
-                        {...register('expiration')}
+                        {...register('expirationDate')}
                         name='expirationDate'
                         label="Validade"
                         maxLength={5}
-                        onChange={(e) => setValue('expiration', mask.maskCardExpiry(e.target.value))}
-                        error={errors.expiration?.message}
+                        onChange={(e) => setValue('expirationDate', mask.maskCardExpiry(e.target.value))}
+                        error={errors.expirationDate?.message}
                         testid="creditCardExpiration"
                     />
                     <Input

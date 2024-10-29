@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CreditCardProvider } from "@/context/payment";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>
-        {children}
-      </body>
+      <CreditCardProvider>
+        <body>
+          {children}
+        </body>
+      </CreditCardProvider>
     </html>
   );
 }
