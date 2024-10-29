@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { mask } from '@/utils/mask';
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,12 @@ import { paymentService } from "@/services/payment";
 import { paymentModel } from "../payment.model";
 import { useRouter } from "next/navigation";
 import { useCreditCardContext } from "@/context/payment";
-
-
-type CreditCardFormData = z.infer<typeof CreditCardSchema>;
+import { installmentService } from "@/services/installments";
+import { Installment, Installments } from "@/types/installments.type";
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CreditCardFormData } from "@/types/creditCard.type";
+import { mockvalue } from "./mockValues";
+import Typography from "@/components/ui/typography";
 
 interface CreditCardFormProps {
     setName: (name: string) => void;
@@ -24,13 +27,11 @@ interface CreditCardFormProps {
 
 const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setExpiration, setName, setNumber }) => {
 
-    // const [installments, setInstallments] = useState([]);
-
-    // const installmentsMemo = useMemo<any>(() => installments, [installments]);
-    const { setCreditCardData} = useCreditCardContext();
+    const [installments, setInstallments] = useState<Installments>();
+    const { setCreditCardData } = useCreditCardContext();
     const router = useRouter();
 
-    const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm<CreditCardFormData>({
         defaultValues: {
             cardNumber: '',
             name: '',
@@ -51,18 +52,30 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
 
     const formValues = watch();
 
-    const onSubmit = async (data: CreditCardFormData ) => {
-        paymentService.sendPayment(paymentModel(data))
-        .then(() => {
-            setCreditCardData(data);
-            clearForm();
-            router.push('/feedback');
+    const onSubmit: SubmitHandler<CreditCardFormData> = async (data) => {
+        if (!installments) return;
+        const payload = {
+            ...data,
+            installments: installments[data.installment].installments,
+            value: installments[data.installment].value
         }
-        )
-        .catch((error) => {
-            console.error('Erro ao realizar pagamento:', error);
-        });    
+        paymentService.sendPayment(paymentModel(payload))
+            .then(() => {
+                setCreditCardData(data);
+                clearForm();
+                router.push('/feedback');
+            })
+            .catch((error) => {
+                console.error('Erro ao realizar pagamento:', error);
+            });
     }
+
+    useEffect(() => {
+        installmentService.getInstallments(mockvalue)
+            .then((response) => {
+                setInstallments(response);
+            })
+    }, []);
 
     useEffect(() => {
         setNumber(mask.maskCardNumber(formValues.cardNumber));
@@ -71,6 +84,10 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
         setCvv(formValues.cvv);
 
     }, [formValues, setNumber, setName, setExpiration, setCvv]);
+
+    const handleChange = (e: any) => {
+        console.log(e);
+    }
 
     return (
         <div>
@@ -105,7 +122,6 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
                         testid="creditCardExpiration"
                     />
                     <Input
-
                         {...register('cvv')}
                         name='cvv'
                         label="CVV"
@@ -117,7 +133,27 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
                         testid="creditCardCVV"
                     />
                 </div>
-                <div className="w-4/12 self-end">
+                <Select
+                    {...register('installment')}
+                    name='installment'
+                    onValueChange={(e) => setValue('installment', parseInt(e))}
+                    testid="creditCardInstallment"
+                >
+                    <SelectTrigger>
+                        <SelectValue placeholder="Número de parcelas" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {installments?.map((installment: Installment) => (
+                            <SelectItem key={installment.installments} value={`${installment.installments}`}>
+                                {installment.installments}x de {mask.parseCurrency(installment.value)} {installment.fee ? `(com juros)` : '(sem juros)'}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                    <Typography variant="span" className="text-sm text-red-500">
+                        {errors.installment?.message}
+                    </Typography>
+                </Select>
+                <div className="w-6/12 md:w-4/12 self-center md:self-end">
                     <Button
                         testid="submitCreditCard"
                         variant='primary'

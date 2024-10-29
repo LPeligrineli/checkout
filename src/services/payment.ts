@@ -1,8 +1,8 @@
-import {  api } from './api';
-import { CreditCardFormData } from '@/types/creditCard.type';
+import { api } from './api';
+import { CreditCardFormData, EncryptedCreditCard } from '@/types/creditCard.type';
 
 export class paymentService {
-  static async sendPayment(data: CreditCardFormData) {
+  static async sendPayment(data: EncryptedCreditCard) {
     try {
       const response = await api.post('/payment', data);
       return response.data;
