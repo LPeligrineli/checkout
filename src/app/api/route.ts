@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import Crypto from "crypto-js";
 
 export async function GET() {
-  return NextResponse.json({ message: "API it's works" });
+  const CryptoJS = Crypto.lib.WordArray.random(32).toString(Crypto.enc.Base64);
+  return NextResponse.json({ message: CryptoJS });
 }
+

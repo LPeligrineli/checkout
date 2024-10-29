@@ -8,10 +8,13 @@ import useWindowSize from '@/hooks/useWindowSize';
 import { Breakpoints } from '@/enum/breakPoint.enum';
 import Image from 'next/image';
 
+// import CryptoJS from 'crypto-js';
+
+
 export default function Home() {
 
   const { width } = useWindowSize();
-
+  // console.log(CryptoJS.lib.WordArray.random(32).toString(CryptoJS.enc.Base64));
   return (
     <main className="grid grid-rows-12 grid-cols-12 w-full h-dvh">
       <section className="col-span-12 md:col-span-3 row-span-3 md:row-span-full bg-green-light">
@@ -26,12 +29,12 @@ export default function Home() {
             )}
           </div>
           <div className='flex items-center justify-center md:justify-start gap-6 mt-8 md:mt-12'>
-            <Image 
+            <Image
               src="/icons/cartao.svg"
               alt="Cartão de crédito"
               width={40}
               height={40}
-            />  
+            />
             <Typography variant="h1">
               Adicione um novo cartão de crédito
             </Typography>
