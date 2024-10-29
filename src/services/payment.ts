@@ -1,5 +1,5 @@
 import { api } from './api';
-import { CreditCardFormData, EncryptedCreditCard } from '@/types/creditCard.type';
+import { EncryptedCreditCard } from '@/types/creditCard.type';
 
 export class paymentService {
   static async sendPayment(data: EncryptedCreditCard) {

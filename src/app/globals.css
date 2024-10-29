@@ -101,5 +101,5 @@ body {
 
 .card-back {
   transform: rotateY(180deg) translateY(-100%); 
- 
+  position: absolute;
 }

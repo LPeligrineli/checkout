@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { mask } from '@/utils/mask';
 import { Button } from "@/components/ui/button";
 import { CreditCardSchema } from "@/schemas/creditCard.schema";
-import { z } from "zod";
 import { paymentService } from "@/services/payment";
 import { paymentModel } from "../payment.model";
 import { useRouter } from "next/navigation";
@@ -50,9 +49,22 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
         });
     }
 
+    const handleSetSelect = (e: string) => {
+        if (installments) {
+            setValue('installment', parseInt(e));
+            setValue('value', installments[parseInt(e) - 1].value);
+        }
+    }
+
+
     const formValues = watch();
 
+    useEffect(() => {
+        console.log(installments);
+    }, [installments]);
+
     const onSubmit: SubmitHandler<CreditCardFormData> = async (data) => {
+
         if (!installments) return;
         const payload = {
             ...data,
@@ -85,13 +97,9 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
 
     }, [formValues, setNumber, setName, setExpiration, setCvv]);
 
-    const handleChange = (e: any) => {
-        console.log(e);
-    }
-
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-x-4 gap-y-6 w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-x-4 gap-y-4 w-full">
 
                 <Input
                     {...register('cardNumber')}
@@ -133,27 +141,27 @@ const CreditCardForm: React.FC<CreditCardFormProps> = ({ flipCard, setCvv, setEx
                         testid="creditCardCVV"
                     />
                 </div>
-                <Select
-                    {...register('installment')}
-                    name='installment'
-                    onValueChange={(e) => setValue('installment', parseInt(e))}
-                    testid="creditCardInstallment"
-                >
-                    <SelectTrigger>
-                        <SelectValue placeholder="Número de parcelas" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {installments?.map((installment: Installment) => (
-                            <SelectItem key={installment.installments} value={`${installment.installments}`}>
-                                {installment.installments}x de {mask.parseCurrency(installment.value)} {installment.fee ? `(com juros)` : '(sem juros)'}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                    <Typography variant="span" className="text-sm text-red-500">
-                        {errors.installment?.message}
-                    </Typography>
-                </Select>
-                <div className="w-6/12 md:w-4/12 self-center md:self-end">
+                <div>
+                    <Select
+                        {...register('installment')}
+                        name='installment'
+                        onValueChange={(e) => handleSetSelect(e)}
+
+                    >
+                        <SelectTrigger error={errors.installment?.message}>
+                            <SelectValue placeholder="Número de parcelas" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {installments?.map((installment: Installment) => (
+                                <SelectItem key={installment.installments} value={`${installment.installments}`}>
+                                    {installment.installments}x de {mask.parseCurrency(installment.value)} {installment.fee ? `(com juros)` : '(sem juros)'}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+
+                </div>
+                <div className="w-6/12 md:w-3/12 self-center md:self-end">
                     <Button
                         testid="submitCreditCard"
                         variant='primary'

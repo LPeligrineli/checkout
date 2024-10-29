@@ -15,6 +15,7 @@ export const CreditCardProvider: React.FC<{ children: ReactNode }> = ({ children
         cvv: '',
         name: '',
         installment: 1,
+        value: 0,
     });
 
     return (

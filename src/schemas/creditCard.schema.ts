@@ -1,8 +1,6 @@
 import z from 'zod';
 import { isCreditCardValid } from '@/utils/isCreditCardValid';
 import { isExpirationDateValid } from '@/utils/isCreditCardExpirate';
-import { isCvvValid } from './../utils/isCvvValid';
-
 
 export const CreditCardSchema = z.object({
     cardNumber: z.string().min(19, {message: 'Número do cartão é obrigatorio'}).refine((value) => isCreditCardValid(value.replace(/\s/g, '').trim()), {
@@ -16,4 +14,5 @@ export const CreditCardSchema = z.object({
     }),
     cvv: z.string().min(3, { message: 'Código inválido' }),
     installment: z.number({message: 'Insira o número de parcelas'}).min(1, { message: 'Insira o número de parcelas' }),
+    value: z.number(),
 });

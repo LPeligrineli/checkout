@@ -18,7 +18,7 @@ const Feedback = () => {
 
     return (
         <section className="h-dvh flex justify-center items-center ">
-            <Card className="w-4/12">
+            <Card className="p-3 w-full md:w-4/12">
                 <div className="relative bg-green-dark text-center w-full p-6">
                     <Typography variant="h1">Pagamento realizado com sucesso</Typography>
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
@@ -38,6 +38,12 @@ const Feedback = () => {
                         <div className="flex justify-between">
                             <Typography variant="h5" className="text-green">Validade:</Typography>
                             <Typography variant="h5" className="text-green">{creditCardData.expirationDate}</Typography>
+                        </div>
+                        <div className="flex justify-center items-end gap-2">
+                            <Typography variant="span" className="text-green">
+                                {creditCardData.installment > 1 ? `${creditCardData.installment} x de ` : 'a vista'}</Typography>
+                            <Typography variant="h3" className="text-green-dark font-bold">{mask.parseCurrency(creditCardData.value)}</Typography>
+
                         </div>
                         <Button onClick={() => {router.back()}} variant="primary" size="lg" className="mt-6">Voltar</Button>
 
