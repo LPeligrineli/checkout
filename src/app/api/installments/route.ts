@@ -6,8 +6,8 @@ type InstallmentsRequest = {
 }
 
 type InstallmentDetail = {
-  installmentNumber: number;
-  installmentValue: number;
+  installments: number;
+  value: number;
 }
 
 export async function POST(req: Request) {
@@ -20,8 +20,9 @@ export async function POST(req: Request) {
     );
   }
   const data: InstallmentDetail[] = Array.from({ length: installments }, (_, i) => ({
-    installmentNumber: i + 1,
-    installmentValue: parseFloat((value / (i + 1) ).toFixed(2)),
+    installments: i + 1,
+    value: parseFloat((value / (i + 1) ).toFixed(2)),
+    fee: installments > 12 ? 0.05 : 0,
   }));
-  return NextResponse.json({ data });
+  return NextResponse.json( data );
 }

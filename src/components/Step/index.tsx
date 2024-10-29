@@ -13,8 +13,6 @@ const Step: React.FC<StepsProps> = ({ steps, currentStep }) => {
     const stepId = useId();
     const { isMobile } = useWindowSize();
 
-    
-
     return (
         <div className={`w-full flex items-center ${isMobile ? 'justify-center' : 'justify-end'}`}>
             {isMobile ? (

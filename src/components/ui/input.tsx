@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
-      setHasValue(!!e.target.value); // Verifica se há valor
+      setHasValue(!!e.target.value);
       if (onBlur) onBlur(e);
     };
 

@@ -1,6 +1,6 @@
 export class mask {
     public static maskCardNumber(cardNumber: string): string {
-        const cleanedCardNumber = cardNumber.replace(/\s+/g, '');
+        const cleanedCardNumber = cardNumber.replace(/\D/g, '');
         return cleanedCardNumber.replace(/(\d{4})/g, '$1 ').trim();
     }
 
@@ -15,5 +15,8 @@ export class mask {
     public static hideCardNumber(cardNumber: string): string {
         const cleanedCardNumber = cardNumber.replace(/\s+/g, '');
         return `**** **** **** ${cleanedCardNumber.slice(-4)}`;
+    }
+    public static parseCurrency(value: number): string {
+        return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 }
