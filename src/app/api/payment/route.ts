@@ -21,10 +21,8 @@ export async function POST(req: Request) {
         const decryptedExpirationDate = decryptData(body.expirationDate);
         const decryptedCvv = decryptData(body.cvv);
         const decryptedName = decryptData(body.name);
-        const decryptedInstallmentCount = decryptData(body.installmentCount);
-        const decryptedInstallmentValue = decryptData(body.installmentValue);
-
-        console.log('Número do cartão:', decryptedCardNumber);
+        const decryptedInstallmentCount = decryptData(body.installment);
+        const decryptedInstallmentValue = decryptData(body.installment);
 
         if (!decryptedCardNumber || decryptedCardNumber.length !== 16) {
             return NextResponse.json({ success: false, message: `O número é: ${decryptedCardNumber}` }, { status: 400 });

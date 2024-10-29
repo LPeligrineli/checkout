@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <main className="grid grid-rows-12 grid-cols-12 w-full h-dvh">
-      <section className="col-span-12 md:col-span-3 row-span-5 md:row-span-full bg-green-light">
+      <section className="col-span-12 md:col-span-3 row-span-3 md:row-span-full bg-green-light">
         <div className="container">
           <div className="flex items-center">
             <FaChevronLeft color='var(--white)' />
@@ -25,7 +25,7 @@ export default function Home() {
               <Step steps={paymentSteps} currentStep={0} />
             )}
           </div>
-          <div className='flex items-center justify-center gap-6'>
+          <div className='flex items-center justify-center md:justify-start gap-6 mt-8 md:mt-12'>
             <Image 
               src="/icons/cartao.svg"
               alt="Cartão de crédito"

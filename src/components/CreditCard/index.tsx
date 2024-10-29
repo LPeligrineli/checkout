@@ -14,8 +14,6 @@ const CreditCard = () => {
     const [expiration, setExpiration] = useState<string>();
     const [cvv, setCvv] = useState<string>();
 
-    console.log('number', number);
-
     const getFlag: CreditCardsFlagsEnum | undefined = useMemo(() => verifyFlag(number), [number]);
 
     const flipCard = (): boolean | undefined => {
