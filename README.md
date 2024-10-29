@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto de Checkout
 
-## Getting Started
+Este projeto é um sistema de checkout que permite aos usuários realizar pagamentos com cartão de crédito. Ele inclui funcionalidades como criptografia de dados sensíveis, validação de formulários e exibição de informações de pagamento.
 
-First, run the development server:
+## Tecnologias Utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **Next.js**: Framework React para renderização do lado do servidor e geração de sites estáticos.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **Tailwind CSS**: Framework CSS para estilização.
+- **CryptoJS**: Biblioteca para criptografia e descriptografia de dados.
+- **React Hook Form**: Biblioteca para gerenciamento de formulários.
+- **Zod**: Biblioteca para validação de esquemas.
+- **Jest**: Framework de testes em JavaScript.
+- **React Testing Library**: Biblioteca para testes de componentes React.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalação
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone o repositório:
+   ```bash
+   git clone git@github.com:LPeligrineli/checkout.git
+   cd checkout
+   ```
+2. Instale as depêndencias
+   
+    ```
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configuração
 
-## Learn More
+1. Crie um arquivo .env na raiz do projeto e adicione as seguintes
+    ```
+    NEXT_PUBLIC_API_URL= http://localhost:3000/api
+    NEXT_PUBLIC_ENCRYPTION_KEY= `${{secrets.NEXT_PUBLIC_ENCRYPTION_KEY}}`
+    ```
+2. Certifique-se de que o arquivo .env está listado no .gitignore para que não seja versionado:
+    ```
+    env
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+## Uso
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Inicie o servidor de desenvolvimento:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```
+    npm run dev
+    ```
 
-## Deploy on Vercel
+2. Abra o navegador e acesse http://localhost:3000.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
