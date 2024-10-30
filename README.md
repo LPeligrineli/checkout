@@ -42,9 +42,11 @@ Este projeto é um sistema de checkout que permite aos usuários realizar pagame
 ## Configuração
 
 1. Crie um arquivo .env.local na raiz do projeto e adicione as seguintes
-    ```
+    ```JS
+    {
     NEXT_PUBLIC_API_URL= http://localhost:3000/api
     NEXT_PUBLIC_ENCRYPTION_KEY= [sua chave de crypto]
+    }
     ```
    Para gerar uma chave de criptografia basta acessar a seguinte rota (http://localhost:3000/api)
 
