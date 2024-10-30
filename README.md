@@ -41,7 +41,7 @@ Este projeto é um sistema de checkout que permite aos usuários realizar pagame
 
 ## Configuração
 
-1. Crie um arquivo .env na raiz do projeto e adicione as seguintes
+1. Crie um arquivo .env.local na raiz do projeto e adicione as seguintes
     ```
     NEXT_PUBLIC_API_URL= http://localhost:3000/api
     NEXT_PUBLIC_ENCRYPTION_KEY= [sua chave de crypto]
